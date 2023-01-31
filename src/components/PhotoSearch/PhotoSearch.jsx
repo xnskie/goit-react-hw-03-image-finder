@@ -68,16 +68,18 @@ class PhotoSearch extends Component {
         this.setState(({ page }) => ({ page: page + 1 }))
     }
 
+
     render() {
         const { items, isLoading, error, currentImage } = this.state;
         const { searchImages, showPicture, loadMore, closeModal } = this;
         return (
             <>
                 <Searchbar onSubmit={searchImages} />
-                <SearchList items={items} showPicture={showPicture} />
+                {items.length>0 && <SearchList items={items} showPicture={showPicture} />}
                 {error && <p>{error}</p>}
                 {isLoading && <Loader />}
-                {Boolean(items.length) && <ButtonLoad loadMore={loadMore} />}
+                {!isLoading && Boolean(items.length) ? <ButtonLoad loadMore={loadMore} /> : ''}
+                {/* {Boolean(items.length) && <ButtonLoad loadMore={loadMore} />} */}
                 {currentImage && (
                     <Modal currentImage={currentImage} closeModal={closeModal} />
                 )}
